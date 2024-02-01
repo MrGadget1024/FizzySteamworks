@@ -1,7 +1,6 @@
 #if !DISABLESTEAMWORKS
 using Steamworks;
 using System;
-using System.IO;
 using UnityEngine;
 
 namespace Mirror.FizzySteam
@@ -226,20 +225,33 @@ namespace Mirror.FizzySteam
 
         public override void Shutdown()
         {
-            if (server != null)
+            try
             {
-                server.Shutdown();
-                server = null;
-                Debug.Log("Transport shut down - was server.");
-            }
+                if (SteamAPI.Init())
+                {
+                    if (client != null)
+                    {
+                        client.Disconnect();
+                        client = null;
+                        Debug.Log("Transport shut down - client.");
+                    }
 
-            if (client != null)
+                    if (server != null)
+                    {
+                        server.Shutdown();
+                        server = null;
+                        Debug.Log("Transport shut down - server.");
+                    }
+
+                    SteamAPI.Shutdown(); // Ensure SteamAPI is properly shut down.
+                }
+            }
+            catch (Exception ex)
             {
-                client.Disconnect();
-                client = null;
-                Debug.Log("Transport shut down - was client.");
+                Debug.LogError($"Exception during shutdown: {ex.Message}");
             }
         }
+
 
         public override int GetMaxPacketSize(int channelId)
         {
@@ -299,8 +311,12 @@ namespace Mirror.FizzySteam
 #endif
                 }
             }
-            catch { }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Failed to initialize relay network access: {ex.Message}");
+            }
         }
+
 
         private void OnDestroy()
         {

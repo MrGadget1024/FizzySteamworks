@@ -40,7 +40,7 @@ namespace Mirror.FizzySteam
             s.OnReceivedData += (id, data, ch) => transport.OnServerDataReceived.Invoke(id, new ArraySegment<byte>(data), ch);
             s.OnReceivedError += (id, error, reason) => transport.OnServerError.Invoke(id, error, reason);
 
-      try
+            try
             {
 #if UNITY_SERVER
                 SteamGameServerNetworkingUtils.InitRelayNetworkAccess();
