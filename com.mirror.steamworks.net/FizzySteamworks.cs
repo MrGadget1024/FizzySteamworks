@@ -227,23 +227,18 @@ namespace Mirror.FizzySteam
         {
             try
             {
-                if (SteamAPI.Init())
+                if (client != null)
                 {
-                    if (client != null)
-                    {
-                        client.Disconnect();
-                        client = null;
-                        Debug.Log("Transport shut down - client.");
-                    }
+                    client.Disconnect();
+                    client = null;
+                    Debug.Log("Transport shut down - client.");
+                }
 
-                    if (server != null)
-                    {
-                        server.Shutdown();
-                        server = null;
-                        Debug.Log("Transport shut down - server.");
-                    }
-
-                    SteamAPI.Shutdown(); // Ensure SteamAPI is properly shut down.
+                if (server != null)
+                {
+                    server.Shutdown();
+                    server = null;
+                    Debug.Log("Transport shut down - server.");
                 }
             }
             catch (Exception ex)
