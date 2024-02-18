@@ -225,25 +225,18 @@ namespace Mirror.FizzySteam
 
         public override void Shutdown()
         {
-            try
+            if (client != null)
             {
-                if (client != null)
-                {
-                    client.Disconnect();
-                    client = null;
-                    Debug.Log("Transport shut down - client.");
-                }
-
-                if (server != null)
-                {
-                    server.Shutdown();
-                    server = null;
-                    Debug.Log("Transport shut down - server.");
-                }
+                client.Disconnect();
+                client = null;
+                Debug.Log("Transport shut down - client.");
             }
-            catch (Exception ex)
+
+            if (server != null)
             {
-                Debug.LogError($"Exception during shutdown: {ex.Message}");
+                server.Shutdown();
+                server = null;
+                Debug.Log("Transport shut down - server.");
             }
         }
 
@@ -314,6 +307,11 @@ namespace Mirror.FizzySteam
 
 
         private void OnDestroy()
+        {
+            Shutdown();
+        }
+
+        public override void OnApplicationQuit()
         {
             Shutdown();
         }
