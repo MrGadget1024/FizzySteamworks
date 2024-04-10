@@ -3,7 +3,7 @@
     prepare: [
         {
             "path": "@semantic-release/exec",
-            "prepareCmd": "echo ${nextRelease.version} > Assets/FizzySteamworks/version.txt"
+            "prepareCmd": "echo ${nextRelease.version} > com.mirror.steamworks.net/version.txt"
         }
     ],
     publish: [        
