@@ -5,9 +5,21 @@ on:
   pull_request:
     branches:
     - master
+    paths-ignore:
+      - '.github/**'
+      - '.gitattributes'
+      - '.gitignore'
+      - '**.md'
+      - '**.yml'
   push:
     branches:
     - master
+    paths-ignore:
+      - '.github/**'
+      - '.gitattributes'
+      - '.gitignore'
+      - '**.md'
+      - '**.yml'
 
 jobs:
   SemanticRelease:
