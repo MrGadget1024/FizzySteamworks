@@ -3,14 +3,14 @@
     prepare: [
         {
             "path": "@semantic-release/exec",
-            "prepareCmd": "echo ${nextRelease.version} > Assets/Mirror/version.txt"
+            "prepareCmd": "echo ${nextRelease.version} > Assets/FizzySteamworks/version.txt"
         }
     ],
     publish: [        
         {
             "path": "@semantic-release/github",
             "assets": [
-                {"path": "Mirror.unitypackage", "label": "Mirror Unity Package", "name": "Mirror-${nextRelease.version}.unitypackage"}
+                {"path": "FizzySteamworks.unitypackage", "label": "FizzySteamworks Unity Package", "name": "FizzySteamworks-${nextRelease.version}.unitypackage"}
             ]
         }
     ],
