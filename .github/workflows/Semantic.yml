@@ -1,0 +1,49 @@
+name: Semantic Release
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+    - master
+  push:
+    branches:
+    - master
+
+jobs:
+  SemanticRelease:
+    name: Semantic Release
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '3.1.100'
+  
+      # Installs nuget package from https://www.nuget.org/packages/unity-packer
+      - name: Install unity-packer
+        run: dotnet tool install -g unity-packer
+  
+      - name: Package
+        run: unity-packer pack FizzySteamworks.unitypackage com.mirror.steamworks.net Assets/Mirror/Transports/FizzySteamworks
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: FizzySteamworks.unitypackage
+          path: FizzySteamworks.unitypackage
+
+      - name: Release
+        uses: cycjimmy/semantic-release-action@v4
+        with:
+          extra_plugins: |
+            @semantic-release/exec
+            @semantic-release/changelog
+            @semantic-release/git
+          branch: master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
