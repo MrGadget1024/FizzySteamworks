@@ -10,7 +10,6 @@ on:
       - '.gitattributes'
       - '.gitignore'
       - '**.md'
-      - '**.yml'
   push:
     branches:
     - master
@@ -19,7 +18,6 @@ on:
       - '.gitattributes'
       - '.gitignore'
       - '**.md'
-      - '**.yml'
 
 jobs:
   SemanticRelease:
