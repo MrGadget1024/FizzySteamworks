@@ -1,40 +1,6 @@
 verifyConditions:
   - "@semantic-release/github"
 
-prepare:
-  # Update version.txt
-  - '@semantic-release/exec'
-  - prepareCmd: "echo ${nextRelease.version} > com.mirror.steamworks.net/version.txt"
-  
-  # move package files out so they're not in the .unitypackage
-  - '@semantic-release/exec'
-  - prepareCmd: "mv com.mirror.steamworks.net/package.json package.json 
-              && mv com.mirror.steamworks.net/package.json.meta package.json.meta"
-  
-  # Create Unity Package
-  - '@semantic-release/exec'
-  - prepareCmd: "unity-packer pack FizzySteamworks.unitypackage com.mirror.steamworks.net Assets/Mirror/Transports/FizzySteamworks" 
-  
-  # move package files back 
-  - '@semantic-release/exec'
-  - prepareCmd: "mv package.json com.mirror.steamworks.net/package.json  
-              && mv package.json.meta com.mirror.steamworks.net/package.json.meta "
-
-publish:
-  - '@semantic-release/git'
-  - assets:
-    - 'com.mirror.steamworks.net/package.json'
-
-  - '@semantic-release/npm'
-  - npmPublish: false
-    pkgRoot: "com.mirror.steamworks.net"
-
-  - '@semantic-release/github'
-  - assets:
-    - path: "FizzySteamworks.unitypackage"
-      label: "FizzySteamworks Unity Package"
-      name: "FizzySteamworks-${nextRelease.version}.unitypackage"
-
 plugins:
   - - '@semantic-release/commit-analyzer'
     - preset: "angular"
@@ -51,3 +17,35 @@ plugins:
           release: "major"
         - type: "feature"
           release: "minor"
+
+    # Update version.txt
+  - - '@semantic-release/exec'
+    - prepareCmd: "echo ${nextRelease.version} > com.mirror.steamworks.net/version.txt"
+
+    # move package files out so they're not in the .unitypackage
+  - - '@semantic-release/exec'
+    - prepareCmd: "mv com.mirror.steamworks.net/package.json package.json 
+                && mv com.mirror.steamworks.net/package.json.meta package.json.meta"
+
+    # Create Unity Package
+  - - '@semantic-release/exec'
+    - prepareCmd: "unity-packer pack FizzySteamworks.unitypackage com.mirror.steamworks.net Assets/Mirror/Transports/FizzySteamworks" 
+
+    # move package files back 
+  - - '@semantic-release/exec'
+    - prepareCmd: "mv package.json com.mirror.steamworks.net/package.json  
+                && mv package.json.meta com.mirror.steamworks.net/package.json.meta "
+
+  - - '@semantic-release/git'
+    - assets:
+      - 'com.mirror.steamworks.net/package.json'
+
+  - - '@semantic-release/npm'
+    - npmPublish: false
+      pkgRoot: "com.mirror.steamworks.net"
+
+  - - '@semantic-release/github'
+    - assets:
+      - path: "FizzySteamworks.unitypackage"
+        label: "FizzySteamworks Unity Package"
+        name: "FizzySteamworks-${nextRelease.version}.unitypackage"
