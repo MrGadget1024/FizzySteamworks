@@ -32,8 +32,8 @@ jobs:
 
       - name: Exclude package.json files
         run: |
-          Remove-Item -Recurse -Force com.mirror.steamworks.net\package.json
-          Remove-Item -Recurse -Force com.mirror.steamworks.net\package.json.meta
+          Remove-Item -Force com.mirror.steamworks.net\package.json
+          Remove-Item -Force com.mirror.steamworks.net\package.json.meta
         
       - name: Setup dotnet
         uses: actions/setup-dotnet@v4
@@ -44,13 +44,13 @@ jobs:
       - name: Install unity-packer
         run: dotnet tool install -g unity-packer
   
-      - name: Package
-        run: unity-packer pack FizzySteamworks.unitypackage com.mirror.steamworks.net Assets/Mirror/Transports/FizzySteamworks
+      # - name: Package
+      #   run: unity-packer pack FizzySteamworks.unitypackage com.mirror.steamworks.net Assets/Mirror/Transports/FizzySteamworks
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: FizzySteamworks.unitypackage
-          path: FizzySteamworks.unitypackage
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: FizzySteamworks.unitypackage
+      #     path: FizzySteamworks.unitypackage
 
       - name: Release
         uses: cycjimmy/semantic-release-action@v4
