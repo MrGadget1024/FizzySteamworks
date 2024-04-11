@@ -1,33 +1,26 @@
-{
-    verifyConditions: ["@semantic-release/github"],
-    prepare: [
-        {
-            "path": "@semantic-release/exec",
-            "prepareCmd": "echo ${nextRelease.version} > com.mirror.steamworks.net/version.txt"
-        }
-    ],
-    publish: [        
-        {
-            "path": "@semantic-release/github",
-            "assets": [
-                {"path": "FizzySteamworks.unitypackage", "label": "FizzySteamworks Unity Package", "name": "FizzySteamworks-${nextRelease.version}.unitypackage"}
-            ]
-        }
-    ],
-    "plugins": [
-        ["@semantic-release/commit-analyzer", {
-            "preset": "angular",
-            "releaseRules": [
-                {"type": "breaking", "release": "major"},
-                {"type": "feature", "release": "minor"},
-            ]
-        }],
-        ['@semantic-release/release-notes-generator', {
-          "preset": "angular",
-            "releaseRules": [
-                {"type": "breaking", "release": "major"},
-                {"type": "feature", "release": "minor"},
-            ]
-        }],
-    ]
-}
+verifyConditions:
+  - "@semantic-release/github"
+prepare:
+  - path: "@semantic-release/exec"
+    prepareCmd: "echo ${nextRelease.version} > com.mirror.steamworks.net/version.txt"
+publish:
+  - path: "@semantic-release/github"
+    assets:
+      - path: "FizzySteamworks.unitypackage"
+        label: "FizzySteamworks Unity Package"
+        name: "FizzySteamworks-${nextRelease.version}.unitypackage"
+plugins:
+  - - "@semantic-release/commit-analyzer"
+    - preset: "angular"
+      releaseRules:
+        - type: "breaking"
+          release: "major"
+        - type: "feature"
+          release: "minor"
+  - - "@semantic-release/release-notes-generator"
+    - preset: "angular"
+      releaseRules:
+        - type: "breaking"
+          release: "major"
+        - type: "feature"
+          release: "minor"
