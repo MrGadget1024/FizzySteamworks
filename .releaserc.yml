@@ -15,8 +15,10 @@ plugins:
       releaseRules:
         - type: "breaking"
           release: "major"
+          section: "Breaking Changes"
         - type: "feature"
           release: "minor"
+          section: "Features"
 
   # Update the version in the package.json file
   - - '@semantic-release/npm'
