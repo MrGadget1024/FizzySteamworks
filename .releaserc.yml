@@ -11,14 +11,13 @@ plugins:
           release: "minor"
 
   - - '@semantic-release/release-notes-generator'
-    - preset: "angular"
-      releaseRules:
-        - type: "breaking"
-          release: "major"
-          section: "Breaking Changes"
-        - type: "feature"
-          release: "minor"
-          section: "Features"
+    - preset: "conventionalcommits"
+      presetConfig:
+        types:
+          - type: "breaking"
+            section: "Breaking Changes"
+          - type: "feature"
+            section: "Features"
 
   # Update the version in the package.json file
   - - '@semantic-release/npm'
