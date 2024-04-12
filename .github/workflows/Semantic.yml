@@ -38,6 +38,10 @@ jobs:
       # Installs nuget package from https://www.nuget.org/packages/unity-packer
       - name: Install unity-packer
         run: dotnet tool install -g unity-packer
+
+      # Install conventional-changelog-conventionalcommits
+      - name: Install conventional-changelog-conventionalcommits
+        run: npm install -g conventional-changelog-conventionalcommits
   
       - name: Release
         uses: cycjimmy/semantic-release-action@v4
