@@ -18,15 +18,16 @@ plugins:
         - type: "feature"
           release: "minor"
 
+  # Update the version in the package.json file
   - - '@semantic-release/npm'
     - npmPublish: false
       pkgRoot: "com.mirror.steamworks.net"
 
-  # Update version.txt
+  # Write the new version in version.txt
   - - '@semantic-release/exec'
     - prepareCmd: "echo ${nextRelease.version} > com.mirror.steamworks.net/version.txt"
 
-  # move package files out so they're not in the .unitypackage
+  # Temporarily move package files to root folder to exclude from normal .unitypackage
   - - '@semantic-release/exec'
     - prepareCmd: "mv com.mirror.steamworks.net/package.json package.json 
                 && mv com.mirror.steamworks.net/package.json.meta package.json.meta"
@@ -35,17 +36,18 @@ plugins:
   - - '@semantic-release/exec'
     - prepareCmd: "unity-packer pack FizzySteamworks.unitypackage com.mirror.steamworks.net Assets/Mirror/Transports/FizzySteamworks" 
 
-  # move package files back 
+  # Move package files back
   - - '@semantic-release/exec'
     - prepareCmd: "mv package.json com.mirror.steamworks.net/package.json  
                 && mv package.json.meta com.mirror.steamworks.net/package.json.meta "
 
-  # commit changes
+  # Commit changes where version was updated
   - - '@semantic-release/git'
     - assets:
       - 'com.mirror.steamworks.net/version.txt'
       - 'com.mirror.steamworks.net/package.json'
 
+  # Create a new release on GitHub
   - - '@semantic-release/github'
     - assets:
       - path: "FizzySteamworks.unitypackage"
