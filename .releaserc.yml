@@ -1,7 +1,7 @@
 verifyConditions:
   - "@semantic-release/github"
 
-tagFormat: "FizzySteamworks ${version}"
+tagFormat: "FizzySteamworks v${version}"
 
 plugins:
   - - '@semantic-release/commit-analyzer'
