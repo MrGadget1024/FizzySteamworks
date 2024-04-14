@@ -48,14 +48,14 @@ plugins:
 
   # Move package files back
   - - '@semantic-release/exec'
-    - prepareCmd: "mv package.json com.mirror.steamworks.net/package.json  
+    - prepareCmd: "mv package.json com.mirror.steamworks.net/package.json 
                 && mv package.json.meta com.mirror.steamworks.net/package.json.meta "
 
   # Commit changes where version was updated
   - - '@semantic-release/git'
     - assets:
-      - 'com.mirror.steamworks.net/version.txt'
       - 'com.mirror.steamworks.net/package.json'
+      # - 'com.mirror.steamworks.net/version.txt'
 
   # Create a new release on GitHub
   - - '@semantic-release/github'
